@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from AutoHeaven.car_parts.forms import CarPartCreateForm, CarPartUpdateForm
 from AutoHeaven.car_parts.models import CarPart
-from AutoHeaven.cars.forms import CarModelCreateForm, CarBrandCreateForm
+
 
 
 class CarPartListView(LoginRequiredMixin, ListView):
@@ -41,9 +41,12 @@ class CarPartUpdateView(LoginRequiredMixin, UpdateView):
     model = CarPart
     template_name = 'car-parts/car-part-update.html'
     form_class = CarPartUpdateForm
+    context_object_name = 'car_part'
     success_url = reverse_lazy('car-parts-list')
 
-    
+
+
+
 
 
 

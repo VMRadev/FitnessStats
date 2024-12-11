@@ -9,7 +9,7 @@ urlpatterns = [
     path('create/', CarPartCreateView.as_view(), name='car-part-create'),
     path('<int:pk>/', include([
         path('detail/', CarPartDetailView.as_view(), name='car-part-detail'),
-        path('update/', CarUpdateView.as_view(), name='car-part-update'),
+        path('update/', CarPartUpdateView.as_view(), name='car-part-update'),
         path('delete/', CarPartDeleteView.as_view(), name='car-part-delete'),
     ]))
 ]
