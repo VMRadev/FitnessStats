@@ -1,0 +1,67 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-flex justify-content-center mb-3">
+            <div class="card" style="width: 50rem;">
+                <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ car }}</h5>
+                    <p class="card-text">{{ car.specs.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if car.specs.engine %}
+                        <li class="list-group-item disabled" aria-disabled="true">Engine: {{ car.specs.engine }}
+                            liters
+                        </li>
+                    {% endif %}
+                    {% if car.specs.mileage %}
+                        <li class="list-group-item disabled" aria-disabled="true">Mileage: {{ car.specs.mileage|intcomma }} km
+                        </li>
+                    {% endif %}
+                    {% if car.specs.fuel_consumption %}
+                        <li class="list-group-item disabled" aria-disabled="true">Fuel
+                            Consumption: {{ car.specs.fuel_consumption }} litres/100km
+                        </li>
+                    {% endif %}
+                    {% if car.specs.max_speed %}
+                        <li class="list-group-item disabled" aria-disabled="true">Max
+                            Speed: {{ car.specs.max_speed }} km/h
+                        </li>
+                    {% endif %}
+                    {% if car.specs.fuel_type %}
+                        <li class="list-group-item disabled" aria-disabled="true">Fuel
+                            Type: {{ car.specs.fuel_type }}</li>
+                    {% endif %}
+                    {% if car.specs.max_distance %}
+                        <li class="list-group-item disabled" aria-disabled="true">Max
+                            Distance: {{ car.specs.max_distance|intcomma }} km
+                        </li>
+                    {% endif %}
+                {% if car.specs.transmission %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            Transmission type: {{ car.specs.transmission }}
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if request.user.pk == car.owner.id %}
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url 'car-update' pk=car.specs.id %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Edit</a>
+                        </button>
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url 'car-specs-update' pk=car.specs.id %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Edit
+                            Specs</a>
+                        </button>
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url 'car-delete' pk=car.id %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Delete</a>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

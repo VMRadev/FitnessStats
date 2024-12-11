@@ -1,0 +1,39 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-flex justify-content-center mb-3">
+            <div class="card" style="width: 50rem;">
+                <img src="{{ car_part.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ car_part }}</h5>
+                    <p class="card-text">{{ car_part.specs.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    
+                    {% if car_part.description %}
+                        <li class="list-group-item disabled" aria-disabled="true">Description: {{ car_part.description }}
+                        </li>
+                    {% endif %}
+                    {% if car_part.price %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            Price: {{ car_part.price }} lv.
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if request.user.pk == car_part.owner.id %}
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url 'car-part-update' pk=car_part.id %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Edit</a>
+                        </button>
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url 'car-part-delete' pk=car_part.id %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Delete</a>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

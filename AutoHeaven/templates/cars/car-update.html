@@ -1,0 +1,57 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="container mt-5">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="" class="form-label">Brand of the car</label>
+                    {{ car_form_brand.name.errors }}
+                    {{ car_form_brand.name }}
+                    {#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Model of the car</label>
+                    {{ car_form_model.model.errors }}
+                    {{ car_form_model.model }}
+                    {#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Price of the car</label>
+                    {{ form.price.errors }}
+                    {{ form.price }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="form-label">Colour of the car</label>
+                    {{ form.color.errors }}
+                    {{ form.color }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Type of the car</label>
+                    {{ form.type.errors }}
+                    {{ form.type }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Status of the car</label>
+                    {{ form.status.errors }}
+                    {{ form.status }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Year of the car</label>
+                    {{ form.year.errors }}
+                    {{ form.year }}
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Car image</label>
+                    <img src="{{ car.image.url }}" class="img-thumbnail" alt="...">
+                    {{ form.image.errors }}
+                    {{ form.image }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

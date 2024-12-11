@@ -1,0 +1,34 @@
+<div class="card" style="width: 18rem;">
+    <img src="{{ car_part.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ car_part }}</h5>
+        {% if car.specs.description %}
+            <p class="card-text">{{ car_part.description|truncatewords:5 }}</p>
+        {% endif %}
+        <p class="card-text">{{ car_part.price }} lv.</p>
+    </div>
+{#        <ul class="list-group list-group-flush">#}
+{#            {% if car.specs.engine %}#}
+{#                <li class="list-group-item disabled" aria-disabled="true">Engine: {{ car.specs.engine }}</li>#}
+{#            {% endif %}#}
+{#            {% if car.specs.mileage %}#}
+{#                <li class="list-group-item disabled" aria-disabled="true">Mileage: {{ car.specs.mileage }}</li>#}
+{#            {% endif %}#}
+{#            {% if car.specs.fuel_consumption %}#}
+{#                <li class="list-group-item disabled" aria-disabled="true">Fuel Consumption: {{ car.specs.fuel_consumption }}</li>#}
+{#            {% endif %}#}
+{#            {% if car.specs.max_speed %}#}
+{#                <li class="list-group-item disabled" aria-disabled="true">Max Speed: {{ car.specs.max_speed }}</li>#}
+{#            {% endif %}#}
+{#            {% if car.specs.fuel_type %}#}
+{#                <li class="list-group-item disabled" aria-disabled="true">Fuel Type: {{ car.specs.fuel_type }}</li>#}
+{#            {% endif %}#}
+{#            {% if car.specs.max_distance %}#}
+{#                <li class="list-group-item disabled" aria-disabled="true">Max Distance: {{ car.specs.max_distance }}</li>#}
+{#            {% endif %}#}
+{#        </ul>#}
+    <div class="card-body">
+        <button><a href="#" class="card-link">Contact</a></button>
+        <button><a href="{% url 'car-part-detail' pk=car_part.pk %}" class="card-link">Show Details</a></button>
+    </div>
+</div>

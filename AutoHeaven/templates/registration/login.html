@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="container-md mt-5">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="" class="form-label">Username</label>
+                    {{ form.username.errors }}
+                    {{ form.username }}
+                    {#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Password</label>
+                    {{ form.password.errors }}
+                    {{ form.password }}
+                    {#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

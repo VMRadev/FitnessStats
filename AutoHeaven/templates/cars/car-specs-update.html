@@ -1,0 +1,52 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="container mt-5">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="" class="form-label">Engine of car</label>
+                    {{ form.engine.errors }}
+                    {{ form.engine }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Mileage</label>
+                    {{ form.mileage.errors }}
+                    {{ form.mileage }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Fuel consumption</label>
+                    {{ form.fuel_consumption.errors }}
+                    {{ form.fuel_consumption }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Max speed of car</label>
+                    {{ form.max_speed.errors }}
+                    {{ form.max_speed }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Fuel Type</label>
+                    {{ form.fuel_type.errors }}
+                    {{ form.fuel_type }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Max distance of one fuel tank</label>
+                    {{ form.max_distance.errors }}
+                    {{ form.max_distance }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Type of Transmission</label>
+                    {{ form.transmission.errors }}
+                    {{ form.transmission }}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Description</label>
+                    {{ form.description.errors }}
+                    {{ form.description }}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

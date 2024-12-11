@@ -1,0 +1,36 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="container mt-5">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="" class="form-label">Name of the part</label>
+                    {{ form.name.errors }}
+                    {{ form.name }}
+                    {#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Description of Part</label>
+                    {{ form.description.errors }}
+                    {{ form.description }}
+                    {#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Price of the part</label>
+                    {{ form.price.errors }}
+                    {{ form.price }}
+                </div>
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Part image</label>
+                    <img src="{{ car_part.image.url }}" class="img-thumbnail" alt="...">
+                    {{ form.image.errors }}
+                    {{ form.image }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

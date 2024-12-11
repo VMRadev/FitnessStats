@@ -1,0 +1,61 @@
+{% extends 'common/base.html' %}
+{% load humanize %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-flex justify-content-center mb-3">
+            <div class="card" style="width: 50rem;">
+                <img src="{{ profile.image.url }}" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">This is the profile of {{ user.username }}</h5>
+                    <p class="card-text">{{ profile.description|default_if_none:'' }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if profile.first_name and profile.last_name %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            Full Name:{{ profile }}
+                        </li>
+                    {% elif profile.first_name %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            First Name:{{ profile.first_name }}
+                        </li>
+                    {% elif profile.last_name %}
+                        <li class="list-group-item disabled" aria-disabled="true">Fuel
+                            Last Name:{{ profile.last_name }}
+                        </li>
+                    {% endif %}
+                    {% if profile.age %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            Age: {{ profile.age }} old
+                        </li>
+                    {% endif %}
+                    {% if car.specs.fuel_type %}
+                        <li class="list-group-item disabled" aria-disabled="true">Fuel
+                            Type: {{ car.specs.fuel_type }}</li>
+                    {% endif %}
+                    {% if profile.height %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            {{ profile.height }} cm tall
+                        </li>
+                    {% endif %}
+                    {% if profile.preferred_transmission %}
+                        <li class="list-group-item disabled" aria-disabled="true">
+                            Preferred transmission: {{ profile.preferred_transmission }}
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if request.user.pk == user.pk %}
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url "profile-update" %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Edit</a>
+                        </button>
+                        <button type="button" class="btn btn-primary"><a
+                                href="{% url "profile-delete" %}"
+                                class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Delete</a>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
