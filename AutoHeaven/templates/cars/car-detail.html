@@ -47,16 +47,16 @@
                 {% if request.user.pk == car.owner.id %}
                     <div class="card-body">
                         <button type="button" class="btn btn-primary"><a
-                                href="{% url 'car-update' pk=car.specs.id %}"
+                                href="{% url 'car-update' pk=car.pk %}"
                                 class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Edit</a>
                         </button>
                         <button type="button" class="btn btn-primary"><a
-                                href="{% url 'car-specs-update' pk=car.specs.id %}"
+                                href="{% url 'car-specs-update' pk=car.specs.pk %}"
                                 class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Edit
                             Specs</a>
                         </button>
                         <button type="button" class="btn btn-primary"><a
-                                href="{% url 'car-delete' pk=car.id %}"
+                                href="{% url 'car-delete' pk=car.pk %}"
                                 class="link-light link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">Delete</a>
                         </button>
                     </div>

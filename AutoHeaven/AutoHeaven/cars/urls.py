@@ -5,6 +5,7 @@ from AutoHeaven.cars.views import CarsListView, CarDetailView, CarDeleteView, Ca
 urlpatterns = [
     path('', CarsListView.as_view(), name='cars'),
     path('create/', CarCreateView.as_view(), name='car-create'),
+    # path('<int:pk>/', .as_view(), name='notify-users'),
     path('<int:pk>/', include([
         path('detail/', CarDetailView.as_view(), name='car-detail'),
         path('update/', CarUpdateView.as_view(), name='car-update'),

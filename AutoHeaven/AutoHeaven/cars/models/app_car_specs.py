@@ -10,6 +10,7 @@ class CarSpecs(models.Model):
         to=Car,
         on_delete=models.CASCADE,
         related_name='specs',
+        primary_key=True,
     )
     engine = models.CharField(
         max_length=30,

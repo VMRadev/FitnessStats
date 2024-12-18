@@ -1,0 +1,14 @@
+<div class="card" style="width: 18rem;">
+    <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ car }}</h5>
+        {% if car.specs.description %}
+            <p class="card-text">{{ car.specs.description|truncatewords:5 }}</p>
+        {% endif %}
+        <p class="card-text">{{ car.price }} lv.</p>
+    </div>
+    <div class="card-body">
+        <button><a href="#" class="card-link">Contact</a></button>
+        <button><a href="{% url 'car-detail' pk=car.pk %}" class="card-link">Show Details</a></button>
+    </div>
+</div>

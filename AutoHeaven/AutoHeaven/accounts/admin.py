@@ -26,7 +26,7 @@ class AppAccountAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2', 'isactive', 'isstaff'),
+            'fields': ('username', 'email', 'password1', 'password2', 'is_active', 'is_staff'),
         }),
     )
 

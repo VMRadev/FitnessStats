@@ -1,6 +1,9 @@
-from AutoHeaven.cars.forms import CarModelCreateForm, CarBrandCreateForm
-from AutoHeaven.cars.models import CarModel, CarBrand
+from django.contrib.auth import get_user_model
 
+from AutoHeaven.cars.forms import CarModelCreateForm, CarBrandCreateForm
+from AutoHeaven.cars.models import CarModel, CarBrand, Car
+
+UserModel = get_user_model()
 
 def validate_model_and_brand_forms(self, form):
     form_brand =CarBrandCreateForm(self.request.POST, )
@@ -29,3 +32,7 @@ def validate_model_and_brand_forms(self, form):
         return self.render_to_response(
             self.get_context_data(form=form, car_form_model=form_model, car_form_brand=form_brand))
 
+
+def get_users_car_id(user):
+    users =  UserModel.objects.exclude(pk=user.pk)
+    return users

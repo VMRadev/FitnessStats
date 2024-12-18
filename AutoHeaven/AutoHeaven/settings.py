@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 from django.urls import reverse_lazy
 
@@ -98,11 +99,11 @@ WSGI_APPLICATION = 'AutoHeaven.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'autoheaven',
-        'USER': 'postgres-user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',  # default PostgreSQL port
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST'),
+        'PORT': config('DATABASE_PORT', cast=int),
     }
 }
 
@@ -159,7 +160,18 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CELERY_BROKER_URL = config('CELERY_DATABASE_ADDRESS')
+CELERY_WORKER_POOL = 'solo'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
 
 LOGIN_URL = reverse_lazy('login')
 LOGIN_EXEMPT_URLS = [
@@ -177,7 +189,7 @@ import cloudinary.api
 
 
 cloudinary.config(
-    cloud_name = 'dtysnbhrl',
-    api_key = '263721636318287',
-    api_secret = 'l4SEPcqrdvN8_HgIxhPHBMmY8pI',
+    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET'),
 )
