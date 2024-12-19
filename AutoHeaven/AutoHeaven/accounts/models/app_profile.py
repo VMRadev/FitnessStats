@@ -51,4 +51,5 @@ class Profile(models.Model):
     image = CloudinaryField('image', null=True, blank=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'.strip() or self.user.username
+        full_name = f"{self.first_name or ''} {self.last_name or ''}".strip()
+        return full_name if full_name else self.user.username

@@ -1,5 +1,7 @@
+from asgiref.sync import sync_to_async
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from AutoHeaven.cars.forms import CarCreateForm, CarModelCreateForm, CarBrandCreateForm, CarUpdateForm, \
@@ -7,12 +9,15 @@ from AutoHeaven.cars.forms import CarCreateForm, CarModelCreateForm, CarBrandCre
 from AutoHeaven.cars.models import CarSpecs
 from AutoHeaven.cars.models.app_car import Car, CarBrand, CarModel
 from AutoHeaven.cars.utils import validate_model_and_brand_forms
+from AutoHeaven.common.utils import get_users_sender_receiver, email_owner
 
+UserModel = get_user_model()
 
 class CarsListView(LoginRequiredMixin, ListView):
     model = Car
     context_object_name = 'cars'
     template_name = 'cars/dashboard.html'
+    paginate_by = 8
 
 
 class CarDetailView(LoginRequiredMixin, DetailView):
@@ -106,3 +111,24 @@ class CarSpecsUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('car-detail', kwargs={'pk': self.object.car.pk})
 
+
+async def fetch_users_and_car(request, user_pk, car_pk):
+    car = await Car.objects.select_related('model', 'brand', 'owner').aget(pk=car_pk)
+    receiver, sender = await get_users_sender_receiver(car.owner.pk, user_pk)
+    return car, receiver, sender
+
+
+async def notify_car_owner(request, user_pk, car_pk):
+    car, user_receiver, user_sender = await fetch_users_and_car(request, user_pk, car_pk)
+
+    subject = f'{user_sender} seems to want to talk to you about {car}.'
+    message=f'Hey {user_receiver}, I really like your car {car} maybe we could meet sometime.'
+
+    await email_owner(
+        subject,
+        message,
+        user_sender.email,
+        user_receiver.email,
+    )
+
+    return await sync_to_async(redirect)('cars')

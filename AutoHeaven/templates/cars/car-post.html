@@ -8,7 +8,9 @@
         <p class="card-text">{{ car.price }} lv.</p>
     </div>
     <div class="card-body">
-        <button><a href="#" class="card-link">Contact</a></button>
+        {% if car.owner.pk != request.user.pk %}
+            <button><a href="{% url 'notify-car-owner' car_pk=car.pk user_pk=request.user.pk %}" class="card-link">Contact</a></button>
+        {% endif %}
         <button><a href="{% url 'car-detail' pk=car.pk %}" class="card-link">Show Details</a></button>
     </div>
 </div>

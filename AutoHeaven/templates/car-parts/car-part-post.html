@@ -8,7 +8,7 @@
         <p class="card-text">{{ car_part.price }} lv.</p>
     </div>
     <div class="card-body">
-        <button><a href="#" class="card-link">Contact</a></button>
+        <button><a href="{% url 'notify-car-part-owner' car_part_pk=car_part.pk user_pk=request.user.pk %}" class="card-link">Contact</a></button>
         <button><a href="{% url 'car-part-detail' pk=car_part.pk %}" class="card-link">Show Details</a></button>
     </div>
 </div>

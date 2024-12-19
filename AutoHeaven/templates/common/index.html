@@ -1,16 +1,24 @@
 {% extends 'common/base.html' %}
+{% load limit_tag %}
 
 {% block content %}
     <div class="container-fluid">
         {% if cars %}
             <h1 class="text-center">Cars</h1>
             <div class="row row-cols-4 justify-content-center">
-                {% for car in cars %}
+                {% for car in cars|limit:8 %}
                     <div class="d-flex justify-content-center text-center mb-3">
                         {% include 'cars/car-post.html' %}
                     </div>
                 {% endfor %}
             </div>
+            {% if cars.count > 8 %}
+                <div class="d-flex flex-column text-center justify-content-center mb-3">
+                    <h4 class="h6">There are more than 8 car.</h4>
+                    <h4 class="h6">Want to take a look of all the cars?</h4>
+                    <h4 class="h6"><a href='{% url 'cars' %}' class="">Click here</a></h4>
+                </div>
+            {% endif %}
         {% else %}
             <div class="d-flex flex-column text-center justify-content-center mb-3">
                 <h4 class="h1">There are no cars registered in the moment!</h4>
@@ -23,12 +31,19 @@
         {% if car_parts %}
             <h1 class="text-center">Car Parts</h1>
             <div class="row row-cols-4 justify-content-center">
-                {% for car_part in car_parts %}
+                {% for car_part in car_parts|limit:8 %}
                     <div class="d-flex justify-content-center text-center mb-3">
                         {% include 'car-parts/car-part-post.html' %}
                     </div>
                 {% endfor %}
             </div>
+            {% if car_parts.count > 8 %}
+                <div class="d-flex flex-column text-center justify-content-center mb-3">
+                    <h4 class="h6">There are more than 8 car parts.</h4>
+                    <h4 class="h6">Want to take a look of all the parts?</h4>
+                    <h4 class="h6"><a href='{% url 'car-parts-list' %}' class="">Click here</a></h4>
+                </div>
+            {% endif %}
         {% else %}
             <div class="d-flex flex-column text-center justify-content-center mb-3">
                 <h4 class="h1">There are no car parts registered in the moment!</h4>
